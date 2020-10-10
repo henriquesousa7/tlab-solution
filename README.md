@@ -34,10 +34,10 @@ CREATE TABLE usuario(
 
 CREATE TABLE evento (
 	id_evento INT NOT NULL AUTO_INCREMENT,
-	descricao VARCHAR(300) NOT NULL,
-	inicio TIME NOT NULL,
-	termino TIME NOT NULL,
-	id_criador INT,
+	descricao VARCHAR(100) NOT NULL,
+	inicio VARCHAR(6) NOT NULL,
+	termino VARCHAR(6) NOT NULL,
+	id_criador INT NOT NULL,
 	CONSTRAINT evento_pk PRIMARY KEY (id_evento),
 	CONSTRAINT evento_criador_fk FOREIGN KEY(id_criador) REFERENCES usuario(id_usuario)
 );

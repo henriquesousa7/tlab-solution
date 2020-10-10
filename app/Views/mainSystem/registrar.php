@@ -13,5 +13,8 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Registrar</button>
         </div>    
+        <div class="clearfix">
+            <p class="text-center"><a href="/eventos">Voltar ao login</a></p>
+        </div>
     </form>
 </div>

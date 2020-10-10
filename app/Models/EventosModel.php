@@ -7,7 +7,7 @@ class EventosModel extends Model
     protected $table = 'evento';
     protected $primaryKey = 'id_evento';
 
-    protected $allowedFields = ['descricao', 'inicio', 'termino'];
+    protected $allowedFields = ['descricao', 'inicio', 'termino', 'id_criador'];
 
     public function getEventos()
     {

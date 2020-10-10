@@ -34,7 +34,6 @@
         }
         .login-form a {
             margin-bottom: 15px;
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             padding: 30px;
             transform: translateY(50%);
         }
@@ -43,6 +42,13 @@
             margin-bottom: 2px;
             text-align: center;
         }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; } 
+        }
+        .fadeIn {
+            animation: fadeIn 1s ease-in-out;
+        }
     </style>
 </head>
-<body>
+<body class="fadeIn">
