@@ -13,4 +13,11 @@ class EventosModel extends Model
     {
         return $this->findAll();
     }
+
+    public function getEvento(string $id) 
+    {
+        $sql = ['id_evento' => $id];
+
+        return $this->where($sql)->first();
+    }
 }

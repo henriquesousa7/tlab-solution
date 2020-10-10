@@ -23,10 +23,10 @@
                 <p><?php echo $evento['inicio'] ?></p>
                 <p><?php echo $evento['termino'] ?></p>
                 <span>
-                    <a href="" class="btn btn-info btn-sm">
+                    <a href="/eventos/editarEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-info btn-sm">
                         Alterar
                     </a>
-                    <a href="" class="btn btn-danger btn-sm">
+                    <a href="/eventos/excluirEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-danger btn-sm">
                         Excluir
                     </a>
                 </span>
@@ -39,25 +39,9 @@
     <?php endif; ?>
 </ul>
 <script>
+    function remover(){
 
-    function search_table(value){
-        $('ul').each(function(){
-            var found = 'false';
-            $(this).each(function(){
-                if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0){
-                    found = 'true';                    
-                }
-            })
-            if(found == 'true'){
-                $(this).show()
-            }else{
-                $(this).hide()
-            }
-        })
     }
 
-    $('#inputSearch').keyup(function(){
-        search_table($(this).val());
-    })
-
+    $()
 </script>

@@ -167,4 +167,65 @@ class Eventos extends BaseController
             echo view('templates/footer');
         }
     }
+
+    public function excluirEvento(string $id_evento = null)
+    {
+        $model = new EventosModel();
+
+        if($model->delete(['id_evento' => $id_evento])){
+            echo view('templates/header');
+            echo view('mainSystem/removeEventos/removeSuccess');
+            echo view('templates/footer');
+        }else{
+            echo view('templates/header');
+            echo view('mainSystem/removeEventos/removeError');
+            echo view('templates/footer');
+        }
+    }
+
+    public function editarEvento(string $id_evento = null)
+    {
+        $model = new EventosModel();
+        $data['evento'] = $model->getEvento($id_evento);
+
+        echo view('templates/header');
+        echo view('mainSystem/editEventos/editEvento', $data);
+        echo view('templates/footer');
+    }
+
+    public function editResponse()
+    {
+        $model = new EventosModel();
+
+        $rules = [
+            'descricao' => 'required|min_length[6]|max_length[100]',
+        ];
+
+        $desc = $this->request->getVar('descricao');
+        $h_inicio = $this->request->getVar('h_inicio');
+        $h_termino = $this->request->getVar('h_termino');
+        $id_evento = intval($this->request->getVar('id_evento'));
+
+        $data = ['descricao' => $desc, 'inicio' => $h_inicio, 'termino' => $h_termino];
+
+        if($this->validate($rules))
+        {
+            
+            $result = $model->update($id_evento, $data);
+
+            if ($result) {
+                echo view('templates/header');
+                echo view('mainSystem/editEventos/editSuccess');
+                echo view('templates/footer');
+            } else {
+                echo view('templates/header');
+                echo view('mainSystem/editEventos/editError');
+                echo view('templates/footer');
+            }
+        } else {
+            echo view('templates/header');
+            echo view('mainSystem/editEventos/editError');
+            echo view('templates/footer');
+        }
+    }
 }
