@@ -9,39 +9,56 @@
 <div class="search">
       	<input id="inputSearch" type="text" class="form-control" placeholder="Procurar">
 </div>
-<ul class="list-group">
-    <?php if(!empty($eventos)): ?>
-        <li class="list-group-item d-flex justify-content-between">
-            <p><strong>Descricao</strong></p>
-            <p><strong>Horario inicio</strong></p>
-            <p><strong>Horario termino</strong></p>
-            <p><strong>Acao</strong></p>
-        </li>
-        <?php foreach ($eventos as $evento): ?>
-            <li class="list-group-item d-flex justify-content-between">
-                <p><?php echo $evento['descricao'] ?></p>
-                <p><?php echo $evento['inicio'] ?></p>
-                <p><?php echo $evento['termino'] ?></p>
-                <span>
-                    <a href="/eventos/editarEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-info btn-sm">
-                        Alterar
-                    </a>
-                    <a href="/eventos/excluirEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-danger btn-sm">
-                        Excluir
-                    </a>
-                </span>
-            </li>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <li class="list-group-item d-flex justify-content-between">
-            <span>Nenhum evento encontrado</span>
-        </li>
-    <?php endif; ?>
-</ul>
-<script>
-    function remover(){
+<?php if(!empty($eventos)): ?>
+    <table class="table table-borderless text-center ">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Horario inicio</th>
+                <th>Horario termino</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($eventos as $evento): ?>
+                <tr>
+                    <td><?php echo $evento['descricao'] ?></td>
+                    <td><?php echo $evento['inicio'] ?></td>
+                    <td><?php echo $evento['termino'] ?></td>
+                    <td>
+                        <a href="/eventos/editarEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-info btn-sm">
+                             Alterar
+                        </a>
+                        <a href="/eventos/excluirEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-danger btn-sm">
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p class="text-center"><strong>Nenhum evento encontrado</strong><p>
+<?php endif; ?>
 
+<script>
+    function search_table(value){
+        $('tbody tr').each(function(){
+            var found = 'false';
+            $(this).each(function(){
+                if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0){
+                    found = 'true';                    
+                }
+            })
+            if(found == 'true'){
+                $(this).show()
+            }else{
+                $(this).hide()
+            }
+        })
     }
 
-    $()
+    $('#inputSearch').keyup(function(){
+        search_table($(this).val());
+    })
 </script>

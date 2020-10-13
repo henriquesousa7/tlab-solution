@@ -10,7 +10,7 @@
     <form action="/eventos/eventoResponse" method="post">
         <h2 class="text-center">Adicionar evento</h2>       
         <div class="form-group">
-            <textarea class="form-control" name="descricao" id="descricao" rows="2" required="required" placeholder="Descricao"></textarea>
+            <textarea class="form-control" name="descricao" id="descricao" rows="2" required="required" placeholder="Descrição"></textarea>
         </div>
         <div class="form-group">
             <input type="time" class="form-control" required="required" id="h_inicio" name="h_inicio">
