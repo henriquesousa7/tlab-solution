@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 use EventosModel;
+use Exception;
 use UsuariosModel;
 
 class Eventos extends BaseController 
@@ -77,16 +78,18 @@ class Eventos extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $result = $model->insert([
-                'usuario' => $this->request->getVar('username'),
-                'email' => $this->request->getVar('email'),
-                'senha' => $this->request->getVar('password')
-            ]);
-            if($result) {
+
+            try{
+                $model->insert([
+                    'usuario' => $this->request->getVar('username'),
+                    'email' => $this->request->getVar('email'),
+                    'senha' => $this->request->getVar('password')
+                ]);
+
                 echo view('templates/header');
                 echo view('mainSystem/registrarSucesso');
                 echo view('templates/footer');
-            }else{
+            }catch(Exception $e){
                 echo view('templates/header');
                 echo view('mainSystem/registrarErro');
                 echo view('templates/footer');
@@ -145,18 +148,19 @@ class Eventos extends BaseController
 
         if($this->validate($rules))
         {
-            $result = $model->insert([
-                'descricao' => $desc,
-                'inicio' => $h_inicio,
-                'termino' => $h_termino,
-                'id_criador' => $id_criador
-            ]);
 
-            if ($result) {
+            try {
+                $model->insert([
+                    'descricao' => $desc,
+                    'inicio' => $h_inicio,
+                    'termino' => $h_termino,
+                    'id_criador' => $id_criador
+                ]);
+
                 echo view('templates/header');
                 echo view('mainSystem/adicionarEventos/addEventoSuccess');
                 echo view('templates/footer');
-            } else {
+            }catch(Exception $e){
                 echo view('templates/header');
                 echo view('mainSystem/adicionarEventos/addEventoError');
                 echo view('templates/footer');
@@ -171,12 +175,13 @@ class Eventos extends BaseController
     public function excluirEvento(string $id_evento = null)
     {
         $model = new EventosModel();
-
-        if($model->delete(['id_evento' => $id_evento])){
+            
+        try{
+            $model->delete(['id_evento' => $id_evento]);
             echo view('templates/header');
             echo view('mainSystem/removeEventos/removeSuccess');
             echo view('templates/footer');
-        }else{
+        }catch(Exception $e){
             echo view('templates/header');
             echo view('mainSystem/removeEventos/removeError');
             echo view('templates/footer');
@@ -210,14 +215,13 @@ class Eventos extends BaseController
 
         if($this->validate($rules))
         {
-            
-            $result = $model->update($id_evento, $data);
+            try{
+                $model->update($id_evento, $data);
 
-            if ($result) {
                 echo view('templates/header');
                 echo view('mainSystem/editEventos/editSuccess');
                 echo view('templates/footer');
-            } else {
+            }catch(Exception $e){
                 echo view('templates/header');
                 echo view('mainSystem/editEventos/editError');
                 echo view('templates/footer');
