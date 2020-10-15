@@ -38,9 +38,7 @@
             transform: translateY(50%);
         }
         .search{
-            margin-top: 10px;
-            margin-bottom: 2px;
-            text-align: center;
+            margin-bottom: 2px; 
         }
         @keyframes fadeIn {
             0% { opacity: 0; }

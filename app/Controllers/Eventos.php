@@ -10,7 +10,7 @@ class Eventos extends BaseController
     public function index()
     {
         echo view('templates/header');
-        echo view('mainSystem/login');
+        echo view('mainSystem/loginUsuario/login');
         echo view('templates/footer');
     }
 
@@ -47,12 +47,12 @@ class Eventos extends BaseController
                     echo view('templates/footer');
                 } else {
                     echo view('templates/header');
-                    echo view('mainSystem/loginError');
+                    echo view('mainSystem/loginUsuario/loginError');
                     echo view('templates/footer');
                 }
             } else {
                 echo view('templates/header');
-                echo view('mainSystem/loginError');
+                echo view('mainSystem/loginUsuario/loginError');
                 echo view('templates/footer');
             }
         }
@@ -61,7 +61,7 @@ class Eventos extends BaseController
     public function register()
     {
         echo view('templates/header');
-        echo view('mainSystem/registrar');
+        echo view('mainSystem/cadastroUsuario/registrar');
         echo view('templates/footer');
     }
 
@@ -87,16 +87,16 @@ class Eventos extends BaseController
                 ]);
 
                 echo view('templates/header');
-                echo view('mainSystem/registrarSucesso');
+                echo view('mainSystem/cadastroUsuario/registrarSucesso');
                 echo view('templates/footer');
             }catch(Exception $e){
                 echo view('templates/header');
-                echo view('mainSystem/registrarErro');
+                echo view('mainSystem/cadastroUsuario/registrarErro');
                 echo view('templates/footer');
             }
         } else {
             echo view('templates/header');
-            echo view('mainSystem/registrarErro');
+            echo view('mainSystem/cadastroUsuario/registrarErro');
             echo view('templates/footer');
         }
     }
