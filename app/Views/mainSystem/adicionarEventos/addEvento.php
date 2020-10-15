@@ -6,21 +6,23 @@
         <a href="/eventos/logout" class="btn btn-danger">Sair</a>
     </div>
 </nav>
-<div class="login-form">
-    <form action="/eventos/eventoResponse" method="post">
-        <h2 class="text-center">Adicionar evento</h2>       
-        <div class="form-group">
-            <textarea class="form-control" name="descricao" id="descricao" rows="2" required="required" placeholder="Descrição"></textarea>
-        </div>
-        <div class="form-group">
-            <input type="time" class="form-control" required="required" id="h_inicio" name="h_inicio">
-        </div>
-        <div class="form-group">
-            <input type="time" class="form-control" required="required" id="h_termino" name="h_termino">
-        </div>
-        <input type="hidden" id="id_criador" name="id_criador" value="<?php echo $usuario['id_usuario'] ?>">
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
-        </div>    
-    </form>
-</div>
+<main>
+    <div class="login-form">
+        <form action="/eventos/eventoResponse" method="post">
+            <h2 class="text-center">Adicionar evento</h2>       
+            <div class="form-group">
+                <textarea class="form-control" name="descricao" id="descricao" rows="2" required="required" placeholder="Descrição"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="time" class="form-control" required="required" id="h_inicio" name="h_inicio">
+            </div>
+            <div class="form-group">
+                <input type="time" class="form-control" required="required" id="h_termino" name="h_termino">
+            </div>
+            <input type="hidden" id="id_criador" name="id_criador" value="<?php echo $usuario['id_usuario'] ?>">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
+            </div>    
+        </form>
+    </div>
+</main>

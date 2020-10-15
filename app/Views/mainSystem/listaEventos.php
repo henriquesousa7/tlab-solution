@@ -6,40 +6,42 @@
         <a href="/eventos/logout" class="btn btn-danger">Sair</a>
     </div>
 </nav>
-<div class="search">
-      	<input id="inputSearch" type="text" class="form-control" placeholder="Procurar">
-</div>
-<?php if(!empty($eventos)): ?>
-    <table class="table table-borderless text-center ">
-        <thead>
-            <tr>
-                <th>Descrição</th>
-                <th>Horario inicio</th>
-                <th>Horario termino</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($eventos as $evento): ?>
+<main>
+    <div class="search">
+            <input id="inputSearch" type="text" class="form-control" placeholder="Procurar">
+    </div>
+    <?php if(!empty($eventos)): ?>
+        <table class="table table-borderless text-center ">
+            <thead>
                 <tr>
-                    <td><?php echo $evento['descricao'] ?></td>
-                    <td><?php echo $evento['inicio'] ?></td>
-                    <td><?php echo $evento['termino'] ?></td>
-                    <td>
-                        <a href="/eventos/editarEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-info btn-sm">
-                             Alterar
-                        </a>
-                        <a href="/eventos/excluirEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-danger btn-sm">
-                            Excluir
-                        </a>
-                    </td>
+                    <th>Descrição</th>
+                    <th>Horario inicio</th>
+                    <th>Horario termino</th>
+                    <th>Ação</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php else: ?>
-    <p class="text-center"><strong>Nenhum evento encontrado</strong><p>
-<?php endif; ?>
+            </thead>
+            <tbody>
+                <?php foreach ($eventos as $evento): ?>
+                    <tr>
+                        <td><?php echo $evento['descricao'] ?></td>
+                        <td><?php echo $evento['inicio'] ?></td>
+                        <td><?php echo $evento['termino'] ?></td>
+                        <td>
+                            <a href="/eventos/editarEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-info btn-sm">
+                                Alterar
+                            </a>
+                            <a href="/eventos/excluirEvento/<?php echo $evento['id_evento'] ?>" class="btn btn-danger btn-sm">
+                                Excluir
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="text-center"><strong>Nenhum evento encontrado</strong><p>
+    <?php endif; ?>
+</main>
 
 <script>
     function search_table(value){
