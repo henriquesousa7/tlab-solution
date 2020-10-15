@@ -8,7 +8,7 @@
 </nav>
 <main>
     <div class="search">
-            <input id="inputSearch" type="text" class="form-control" placeholder="Procurar">
+        <input id="inputSearch" type="text" class="form-control" placeholder="Procurar">
     </div>
     <?php if(!empty($eventos)): ?>
         <table class="table table-borderless text-center ">
