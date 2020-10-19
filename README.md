@@ -28,7 +28,7 @@ CREATE TABLE usuario(
 	id_usuario INT NOT NULL AUTO_INCREMENT,
 	usuario VARCHAR( 25 ) NOT NULL UNIQUE,
     email VARCHAR( 100 ) NOT NULL UNIQUE,
-	senha VARCHAR( 40 ) NOT NULL ,
+	senha VARCHAR( 60 ) NOT NULL ,
 	CONSTRAINT usuario_pk PRIMARY KEY (id_usuario)
 );
 

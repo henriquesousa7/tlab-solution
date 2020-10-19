@@ -9,18 +9,14 @@ class Eventos extends BaseController
 
     public function index()
     {
-        echo view('templates/header');
-        echo view('mainSystem/loginUsuario/login');
-        echo view('templates/footer');
+        $this->callView('mainSystem/loginUsuario/login');
     }
 
     public function loginResponse()
     {
         if(session()->has('usuario'))
         {
-            echo view('templates/header');
-            echo view('mainSystem/menuEventos');
-            echo view('templates/footer');
+            $this->callView('mainSystem/menuEventos');
         } else {    
             helper('form');
             
@@ -37,32 +33,31 @@ class Eventos extends BaseController
                 $usuario = $this->request->getVar('username');
                 $senha = $this->request->getVar('password');
 
-                if ($modelUsuarios->getUsuario($usuario, $senha)) {
-                    session()->set([
-                        'usuario' => $usuario,
-                        'senha' => $senha
-                    ]);
-                    echo view('templates/header');
-                    echo view('mainSystem/menuEventos');
-                    echo view('templates/footer');
+                $data = $modelUsuarios->getUsuario($usuario);
+
+                if ($data) {
+                    if(password_verify($senha, $data['senha'])){
+                        session()->set([
+                            'usuario' => $usuario,
+                            'senha' => $data['senha']
+                        ]);
+                        $this->callView('mainSystem/menuEventos');
+                    }else{
+                        $this->callView('mainSystem/loginUsuario/loginError');
+                    }
+                    
                 } else {
-                    echo view('templates/header');
-                    echo view('mainSystem/loginUsuario/loginError');
-                    echo view('templates/footer');
+                    $this->callView('mainSystem/loginUsuario/loginError');
                 }
             } else {
-                echo view('templates/header');
-                echo view('mainSystem/loginUsuario/loginError');
-                echo view('templates/footer');
+                $this->callView('mainSystem/loginUsuario/loginError');
             }
         }
     }
 
     public function register()
     {
-        echo view('templates/header');
-        echo view('mainSystem/cadastroUsuario/registrar');
-        echo view('templates/footer');
+        $this->callView('mainSystem/cadastroUsuario/registrar');
     }
 
     public function registerResponse()
@@ -83,21 +78,14 @@ class Eventos extends BaseController
                 $model->insert([
                     'usuario' => $this->request->getVar('username'),
                     'email' => $this->request->getVar('email'),
-                    'senha' => $this->request->getVar('password')
+                    'senha' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT)
                 ]);
-
-                echo view('templates/header');
-                echo view('mainSystem/cadastroUsuario/registrarSucesso');
-                echo view('templates/footer');
+                $this->callView('mainSystem/cadastroUsuario/registrarSucesso');
             }catch(Exception $e){
-                echo view('templates/header');
-                echo view('mainSystem/cadastroUsuario/registrarErro');
-                echo view('templates/footer');
+                $this->callView('mainSystem/cadastroUsuario/registrarErro');
             }
         } else {
-            echo view('templates/header');
-            echo view('mainSystem/cadastroUsuario/registrarErro');
-            echo view('templates/footer');
+            $this->callView('mainSystem/cadastroUsuario/registrarErro');
         }
     }
     
@@ -107,9 +95,8 @@ class Eventos extends BaseController
         $model = new EventosModel();
         $data = ['eventos' => $model->getEventos()];
 
-        echo view('templates/header');
-        echo view('mainSystem/listaEventos', $data);
-        echo view('templates/footer');
+        $this->callView('mainSystem/listaEventos', $data);
+
     }
 
     public function logout()
@@ -126,9 +113,7 @@ class Eventos extends BaseController
         $senha = session()->get('senha');
         $data['usuario'] = $model->getUsuario($usuario, $senha);
 
-        echo view('templates/header');
-        echo view('mainSystem/adicionarEventos/addEvento', $data);
-        echo view('templates/footer');
+        $this->callView('mainSystem/adicionarEventos/addEvento', $data);
     }
 
     public function eventoResponse()
@@ -150,25 +135,21 @@ class Eventos extends BaseController
         {
 
             try {
+
                 $model->insert([
                     'descricao' => $desc,
                     'inicio' => $h_inicio,
                     'termino' => $h_termino,
                     'id_criador' => $id_criador
                 ]);
-
-                echo view('templates/header');
-                echo view('mainSystem/adicionarEventos/addEventoSuccess');
-                echo view('templates/footer');
+                $this->callView('mainSystem/adicionarEventos/addEventoSuccess');
+            
             }catch(Exception $e){
-                echo view('templates/header');
-                echo view('mainSystem/adicionarEventos/addEventoError');
-                echo view('templates/footer');
+                $this->callView('mainSystem/adicionarEventos/addEventoError');
             }
         } else {
-            echo view('templates/header');
-            echo view('mainSystem/adicionarEventos/addEventoError');
-            echo view('templates/footer');
+
+            $this->callView('mainSystem/adicionarEventos/addEventoError');
         }
     }
 
@@ -177,14 +158,13 @@ class Eventos extends BaseController
         $model = new EventosModel();
             
         try{
+
             $model->delete(['id_evento' => $id_evento]);
-            echo view('templates/header');
-            echo view('mainSystem/removeEventos/removeSuccess');
-            echo view('templates/footer');
+            $this->callView('mainSystem/removeEventos/removeSuccess');
+
         }catch(Exception $e){
-            echo view('templates/header');
-            echo view('mainSystem/removeEventos/removeError');
-            echo view('templates/footer');
+
+            $this->callView('mainSystem/removeEventos/removeError');
         }
     }
 
@@ -193,9 +173,7 @@ class Eventos extends BaseController
         $model = new EventosModel();
         $data['evento'] = $model->getEvento($id_evento);
 
-        echo view('templates/header');
-        echo view('mainSystem/editEventos/editEvento', $data);
-        echo view('templates/footer');
+        $this->callView('mainSystem/editEventos/editEvento', $data);
     }
 
     public function editResponse()
@@ -216,19 +194,28 @@ class Eventos extends BaseController
         if($this->validate($rules))
         {
             try{
+
                 $model->update($id_evento, $data);
 
-                echo view('templates/header');
-                echo view('mainSystem/editEventos/editSuccess');
-                echo view('templates/footer');
+                $this->callView('mainSystem/editEventos/editSuccess');
+
             }catch(Exception $e){
-                echo view('templates/header');
-                echo view('mainSystem/editEventos/editError');
-                echo view('templates/footer');
+
+                $this->callView('mainSystem/editEventos/editError');
             }
         } else {
+            $this->callView('mainSystem/editEventos/editError');
+        }
+    }
+
+    private function callView(string $path, $data = null){
+        if($data === null){
             echo view('templates/header');
-            echo view('mainSystem/editEventos/editError');
+            echo view($path);
+            echo view('templates/footer');
+        }else{
+            echo view('templates/header');
+            echo view($path, $data);
             echo view('templates/footer');
         }
     }

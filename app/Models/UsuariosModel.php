@@ -11,6 +11,12 @@ class UsuariosModel extends Model
 
     public function getUsuario(string $usuario = null, string $senha = null) 
     {
+        if($senha === null){
+
+            $sql = ['usuario' => $usuario];
+            return $this->where($sql)->first();
+        }
+
         $sql = ['usuario' => $usuario, 'senha' => $senha];
 
         return $this->where($sql)->first();
